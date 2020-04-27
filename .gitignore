@@ -1,0 +1,10 @@
+.ipynb_checkpoints
+venv
+.vscode
+api/__pycache__/
+.scannerwork
+coverage.xml
+.coverage
+htmlcov
+images
+.idea/
