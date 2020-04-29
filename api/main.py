@@ -2,10 +2,10 @@ from flask import Flask, escape, request, jsonify, abort, request, send_from_dir
 from flask_restplus import Api, Resource, reqparse, fields
 from generator import ImageGenerator
 import json
-import requests as req
 import uuid
-
 import os
+
+IMAGE_DIR = "{}/api/static/cleaned-images".format(os.getcwd())
 
 # flask app configuration
 app = Flask(__name__, static_folder='static')
@@ -86,8 +86,9 @@ class Generator(Resource):
 @api.route('/image/<id>')
 class Download(Resource):
     def get(self, id):
-        file_path = "{}/api/static/images/".format(os.getcwd())
+        file_path = IMAGE_DIR
         file_name = "{}.png".format(id)
+
         return send_from_directory(file_path, file_name, as_attachment=True)
 
 
