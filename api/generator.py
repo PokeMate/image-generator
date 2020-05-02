@@ -14,16 +14,13 @@ IMAGE_DIR = "{}/api/static/cleaned-images".format(os.getcwd())
 class ImageGenerator:
     def __init__(self):
         self.hub_module = hub.load('https://tfhub.dev/google/magenta/arbitrary-image-stylization-v1-256/1')
-        self.num_pokemons = count_files(IMAGE_DIR)
 
-    def generate_image(self, id1, id2):
-        print(self.num_pokemons)
-
+    def generate_image(self, id1, id2, new_id):
         path1 = "{}/{}.png".format(IMAGE_DIR, id1)
         path2 = "{}/{}.png".format(IMAGE_DIR, id2)
-        path3 = "{}/{}.png".format(IMAGE_DIR, self.num_pokemons + 1)
+        path3 = "{}/{}.png".format(IMAGE_DIR, new_id)
 
-        print("generating image for {} and {}".format(path1, path2))
+        print("generating image for {} and {} as new Pokemon with id ".format(path1, path2, new_id))
 
         content_path = path1
         style_path = path2
@@ -34,9 +31,6 @@ class ImageGenerator:
         stylized_image = self.hub_module(tf.constant(content_image), tf.constant(style_image))[0]
         new_image = tensor_to_image(stylized_image)
         new_image.save(path3)
-        self.num_pokemons = count_files(IMAGE_DIR)
-        print(self.num_pokemons)
-        return self.num_pokemons
 
 
 def tensor_to_image(tensor):

@@ -6,5 +6,5 @@ api/__pycache__/
 coverage.xml
 .coverage
 htmlcov
-images
 .idea/
+api/static/cleaned-images/*
